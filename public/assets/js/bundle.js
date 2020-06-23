@@ -86,6 +86,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/css/style.css":
+/*!********************************!*\
+  !*** ./frontend/css/style.css ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "./frontend/main.js":
 /*!**************************!*\
   !*** ./frontend/main.js ***!
@@ -99,8 +110,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_stable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_stable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./css/style.css */ "./frontend/css/style.css");
+/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_css_style_css__WEBPACK_IMPORTED_MODULE_2__);
 
 
+
+var screen = document.getElementById('screen');
+var context = screen.getContext('2d');
+var currentPlayerId = 'player1';
+var game = {
+  players: {
+    'player1': {
+      x: 1,
+      y: 1
+    },
+    'player2': {
+      x: 9,
+      y: 9
+    }
+  },
+  fruits: {
+    'fruit1': {
+      x: 3,
+      y: 1
+    }
+  }
+};
+document.addEventListener('keydown', handleKeydown);
+
+function handleKeydown(event) {
+  var keypress = event.key;
+  var player = game.players[currentPlayerId];
+
+  if (keypress == 'ArrowUp' && player.y - 1 >= 0) {
+    player.y -= 1;
+    console.log('Up');
+  }
+
+  if (keypress == 'ArrowDown' && player.y + 1 < screen.height) {
+    player.y += 1;
+    console.log('Down');
+  }
+
+  if (keypress == 'ArrowRight' && player.x + 1 < screen.width) {
+    player.x += 1;
+    console.log('Right');
+  }
+
+  if (keypress == 'ArrowLeft' && player.x - 1 >= 0) {
+    player.x -= 1;
+    console.log('Left');
+  }
+}
+
+renderScreen();
+
+function renderScreen() {
+  context.fillStyle = 'white';
+  context.clearRect(0, 0, 10, 10);
+
+  for (var playerId in game.players) {
+    var player = game.players[playerId];
+    context.fillStyle = 'black';
+    context.fillRect(player.x, player.y, 1, 1);
+  }
+
+  for (var fruitId in game.fruits) {
+    var fruit = game.fruits[fruitId];
+    context.fillStyle = 'green';
+    context.fillRect(fruit.x, fruit.y, 1, 1);
+  } // Função que serve para otmizar o jogo
+
+
+  requestAnimationFrame(renderScreen);
+}
 
 /***/ }),
 
