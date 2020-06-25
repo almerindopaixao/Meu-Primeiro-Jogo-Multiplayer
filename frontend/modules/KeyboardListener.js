@@ -1,10 +1,23 @@
 export default function (document) {
     const state = {
-        observers: []
+        observers: [],
+        playerId: null
+    }
+
+    function registerPlayerId(playerId) {
+        state.playerId = playerId
+    }
+
+    function unRegisterPlayerId() {
+        state.playerId = null
     }
 
     function subscribe(observerFunction) {
         state.observers.push(observerFunction)
+    }
+
+    function underSubscribe() {
+        state.observers = []
     }
 
     function notifyAll(command) {
@@ -19,15 +32,19 @@ export default function (document) {
         const keyPressed = event.key;
 
         const command = {
-            playerId: 'player1',
-            keyPressed,
+            type: 'move-player',
+            playerId: state.playerId,
+            keyPressed
         }
 
         notifyAll(command)
     }
 
     return {
-        subscribe
+        subscribe,
+        registerPlayerId,
+        unRegisterPlayerId,
+        underSubscribe
     }
 
 }

@@ -20,20 +20,32 @@ app.set('view engine', 'html')
 app.use(routes);
 
 const game = createGame();
+//game.start()
 
-game.addPlayer({playerId: 'player1', playerX: 0, playerY: 0})
-game.addPlayer({playerId: 'player2', playerX: 7, playerY: 0})
-game.addPlayer({playerId: 'player3', playerX: 9, playerY: 0})
-game.addFruit({fruitId: 'fruta1', fruitX: 3, fruitY: 3})
-game.addFruit({fruitId: 'fruta2', fruitX: 3, fruitY: 5})
-
-console.log(game.state)
+game.subscribe( command => {
+    console.log(`> Emitting ${command.type}`)
+    sockets.emit(command.type, command)
+})
 
 sockets.on('connection', socket => {
     const playerId = socket.id;
-    console.log(`> Player connected on Server with id: ${playerId}`)
+    console.log(`> Player connected: ${playerId}`)
+
+    game.addPlayer({ playerId: playerId})
 
     socket.emit('setup', game.state)
+
+    socket.on('disconnect', () => {
+        game.removePLayer({playerId: playerId})
+        console.log(`> Player Disconnect: ${playerId}`)
+    })
+
+    socket.on('move-player', command => {
+        command.playerId = playerId
+        command.type = 'move-player'
+
+        game.movePlayer(command)
+    })
 })
 
 
