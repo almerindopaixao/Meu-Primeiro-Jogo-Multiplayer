@@ -1,7 +1,7 @@
 # Meu-Primeiro-Jogo-Multiplayer
 ![Preview do Game](./preview/game_image.png)
----
-Esse jogo é baseado no game criado por [Filipe Deschamps](https://www.youtube.com/channel/UCU5JicSrEM5A63jkJ2QvGYw)&nbsp; e você pode acessar o repositório original [clicando aqui](https://github.com/filipedeschamps/meu-primeiro-jogo-multiplayer)
+
+Esse jogo é baseado no game criado por [Filipe Deschamps](https://www.youtube.com/channel/UCU5JicSrEM5A63jkJ2QvGYw) e você pode acessar o repositório original [clicando aqui](https://github.com/filipedeschamps/meu-primeiro-jogo-multiplayer)
 ## Características Gerais
 * Multiplayer
 * Linguagens/Tecnologias
