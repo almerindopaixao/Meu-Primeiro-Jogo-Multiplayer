@@ -4,7 +4,7 @@ import socketio from 'socket.io';
 import { createServer } from 'http';
 
 import homeRoutes from './src/routes/homeRoutes';
-import createGame from './src/controllers/gameController';
+import createGame from './frontend/modules/Game';
 
 class App {
     constructor() {
@@ -32,7 +32,7 @@ class App {
 
     connection() {
         this.game.subscribe(command => {
-            console.log(`> Emitting ${command.type}`);
+            // console.log(`> Emitting ${command.type}`);
             this.sockets.emit(command.type, command);
         })
 
