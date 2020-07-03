@@ -1,3 +1,4 @@
+import io from 'socket.io-client';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import './css/style.css';
@@ -5,7 +6,6 @@ import createGame from './modules/Game';
 import createKeyboardListener from './modules/KeyboardListener';
 import renderScreen from './modules/renderScreen';
 
-const io = require('socket.io-client');
 const socket = io()
 
 const game = createGame();
@@ -13,17 +13,16 @@ const keyBoardListener = createKeyboardListener(document);
 
 socket.on('connect', () => {
     const playerId = socket.id;
-    console.log(`> Player connected on Cliente with id: ${playerId}`)
-
+    console.log(`> Player connected on Cliente with id: ${playerId}`);
+    console.log('conectei');
     const screen = document.getElementById('screen');
-    renderScreen(screen, game, requestAnimationFrame, playerId)
+    renderScreen(screen, game, requestAnimationFrame, playerId);
+    console.log('aqui');
 })
 
 socket.on('disconnect', () => {
-    console.log(`Player disconnected`)
-
-    keyBoardListener.unRegisterPlayerId()
-    keyBoardListener.underSubscribe()
+    console.log(`Player disconnected`);
+    keyBoardListener.underSubscribe();
 
 })
 

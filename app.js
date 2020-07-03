@@ -36,9 +36,11 @@ class App {
             this.sockets.emit(command.type, command);
         })
 
+        // this.game.start()
+
         this.sockets.on('connection', socket => {
             const playerId = socket.id;
-            console.log('> `> Player connected: ${playerId}');
+            console.log(`> Player connected: ${playerId}`);
 
             this.game.addPlayer({ playerId: playerId });
 

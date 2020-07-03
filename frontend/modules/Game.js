@@ -7,7 +7,7 @@ export default function() {
         fruits: {},
         screen: {
             width: 10,
-            height: 10
+            height: 10,
         }
     }
 
@@ -31,6 +31,12 @@ export default function() {
 
     const observers = [];
 
+    function start() {
+        const frequency = 4000;
+
+        setInterval(addFruit, frequency);
+    }
+
     function subscribe(observerFunction) {
         observers.push(observerFunction)
     }
@@ -49,17 +55,20 @@ export default function() {
         const playerId = command.playerId;
         const playerX = 'playerX' in command ? command.playerX : Math.floor(Math.random() * state.screen.width);
         const playerY = 'playerY' in command ? command.playerY : Math.floor(Math.random() * state.screen.height);
+        const score = 0
 
         state.players[playerId] = {
             x: playerX,
-            y: playerY
+            y: playerY,
+            score,
         }
 
         notifyAll({
             type: 'add-player',
             playerId: playerId,
             playerX: playerX,
-            playerY: playerY
+            playerY: playerY,
+            score
         })
     }
 
@@ -82,14 +91,14 @@ export default function() {
 
         state.fruits[fruitId] = {
             x: fruitX,
-            y: fruitY
+            y: fruitY,
         }
 
         notifyAll({
             type: 'add-fruit',
             fruitId: fruitId,
             fruitX: fruitX,
-            fruitY: fruitY
+            fruitY: fruitY,
         })
     }
 
@@ -97,6 +106,11 @@ export default function() {
         const fruitId = command.fruitId
 
         delete state.fruits[fruitId]
+
+        notifyAll({
+            type: 'remove-fruit',
+            fruitId: fruitId,
+        })
     }
 
     function movePlayer(command) {
@@ -119,11 +133,12 @@ export default function() {
 
         for (let fruitId in state.fruits) {
             const fruit = state.fruits[fruitId];
-            console.log(`Checking ${playerId} and ${fruitId}`)
+            // console.log(`Checking ${playerId} and ${fruitId}`)
 
             if (player.x === fruit.x && player.y === fruit.y) {
-                console.log(`COLLISION between ${playerId} and ${fruitId}`)
+                // console.log(`COLLISION between ${playerId} and ${fruitId}`)
                 removeFruit({ fruitId: fruitId })
+                player.score += 1
             }
         }
 
@@ -137,6 +152,7 @@ export default function() {
         addFruit,
         state,
         setState,
-        subscribe
+        subscribe,
+        start
     }
 }

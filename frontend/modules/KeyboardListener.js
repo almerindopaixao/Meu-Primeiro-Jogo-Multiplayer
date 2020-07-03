@@ -8,15 +8,11 @@ export default function (document) {
         state.playerId = playerId
     }
 
-    function unRegisterPlayerId() {
-        state.playerId = null
-    }
-
     function subscribe(observerFunction) {
         state.observers.push(observerFunction)
     }
 
-    function underSubscribe() {
+    function underSubscribe(observerFunction) {
         state.observers = []
     }
 
@@ -43,7 +39,6 @@ export default function (document) {
     return {
         subscribe,
         registerPlayerId,
-        unRegisterPlayerId,
         underSubscribe
     }
 
