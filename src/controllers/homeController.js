@@ -1,10 +1,11 @@
-const path = require('path')
-
-exports.paginaInicial = (req, res) => {
-    res.render('cliente.html')
+class HomeController {
+    index(req, res) {
+        try {
+            res.render('cliente');
+        } catch (e) {
+            res.send('Arquivo não encontrado')
+        }
+    }
 }
 
-exports.trataPost = (req, res) => {
-    res.send(req.body)
-    return
-}
+export default new HomeController();

@@ -1,3 +1,4 @@
+/*
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
@@ -47,7 +48,9 @@ sockets.on('connection', socket => {
         game.movePlayer(command)
     })
 })
+*/
 
+import server from './app';
 
 server.listen(3333, () => {
     console.log('> Server listerning on port: 3333')
