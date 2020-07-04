@@ -1,11 +1,15 @@
+let player;
+
 class HomeController {
     index(req, res) {
-        try {
-            res.render('cliente');
-        } catch (e) {
-            res.send('Arquivo não encontrado')
-        }
+        res.render('cadastro')
+    }
+
+    store(req, res) {
+        res.render('cliente');
+        player = req.body.player;
     }
 }
 
+export { player };
 export default new HomeController();

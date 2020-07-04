@@ -52,6 +52,7 @@ function updateScoreTable(scoreTable, game, currentPlayerId) {
         const player = game.state.players[socketId];
         playersArray.push({
             playerId: socketId,
+            name: player.name,
             x: player.x,
             y: player.y,
             score: player.score,
@@ -75,7 +76,7 @@ function updateScoreTable(scoreTable, game, currentPlayerId) {
     scoreTableInnerHTML = topScorePlayers.reduce((stringFormed, player) => {
         return stringFormed + `
             <tr ${player.playerId == currentPlayerId ? 'class="current-Player"' : ''}>
-                <td>${player.playerId}</td>
+                <td>${player.name}</td>
                 <td>${player.score}</td>
             </tr>
         `

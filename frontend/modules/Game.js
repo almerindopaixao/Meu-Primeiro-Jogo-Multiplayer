@@ -56,8 +56,10 @@ export default function() {
         const playerX = 'playerX' in command ? command.playerX : Math.floor(Math.random() * state.screen.width);
         const playerY = 'playerY' in command ? command.playerY : Math.floor(Math.random() * state.screen.height);
         const score = 0;
+        const name = command.name;
 
         state.players[playerId] = {
+            name,
             x: playerX,
             y: playerY,
             score,
@@ -65,6 +67,7 @@ export default function() {
 
         notifyAll({
             type: 'add-player',
+            name,
             playerId: playerId,
             playerX: playerX,
             playerY: playerY,

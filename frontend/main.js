@@ -14,12 +14,13 @@ const keyBoardListener = createKeyboardListener(document);
 socket.on('connect', () => {
     const playerId = socket.id;
     console.log(`> Player connected on Cliente with id: ${playerId}`);
-
     const screen = document.getElementById('screen');
     const scoreTable = document.getElementById('score-table');
-
-    setupScreen(screen, game);
-    renderScreen(screen, scoreTable, game, requestAnimationFrame, playerId);
+    if (screen) {
+        setupScreen(screen, game);
+        renderScreen(screen, scoreTable, game, requestAnimationFrame, playerId);
+    }
+    
 })
 
 socket.on('disconnect', () => {
@@ -32,7 +33,7 @@ socket.on('setup', state => {
     const playerId = socket.id
     game.setState(state)
 
-    keyBoardListener.registerPlayerId(playerId)
+    keyBoardListener.registerPlayerId(playerId);
     keyBoardListener.subscribe(game.movePlayer)
     keyBoardListener.subscribe(command => {
         socket.emit('move-player', command)
@@ -42,7 +43,7 @@ socket.on('setup', state => {
 socket.on('add-player', command => {
     console.log(`Receiving ${command.type} => ${command.playerId}`)
     game.addPlayer(command)
-})
+});
 
 socket.on('remove-player', command => {
     console.log(`Receiving ${command.type} => ${command.playerId}`)
