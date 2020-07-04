@@ -6,8 +6,8 @@ export default function() {
         players: {},
         fruits: {},
         screen: {
-            width: 10,
-            height: 10,
+            width: 25,
+            height: 25,
         }
     }
 
@@ -55,7 +55,7 @@ export default function() {
         const playerId = command.playerId;
         const playerX = 'playerX' in command ? command.playerX : Math.floor(Math.random() * state.screen.width);
         const playerY = 'playerY' in command ? command.playerY : Math.floor(Math.random() * state.screen.height);
-        const score = 0
+        const score = 0;
 
         state.players[playerId] = {
             x: playerX,
@@ -68,7 +68,7 @@ export default function() {
             playerId: playerId,
             playerX: playerX,
             playerY: playerY,
-            score
+            score,
         })
     }
 
@@ -103,9 +103,9 @@ export default function() {
     }
 
     function removeFruit(command) {
-        const fruitId = command.fruitId
+        const fruitId = command.fruitId;
 
-        delete state.fruits[fruitId]
+        delete state.fruits[fruitId];
 
         notifyAll({
             type: 'remove-fruit',

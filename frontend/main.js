@@ -4,7 +4,7 @@ import 'regenerator-runtime/runtime';
 import './css/style.css';
 import createGame from './modules/Game';
 import createKeyboardListener from './modules/KeyboardListener';
-import renderScreen from './modules/renderScreen';
+import renderScreen, { setupScreen } from './modules/renderScreen';
 
 const socket = io()
 
@@ -14,10 +14,12 @@ const keyBoardListener = createKeyboardListener(document);
 socket.on('connect', () => {
     const playerId = socket.id;
     console.log(`> Player connected on Cliente with id: ${playerId}`);
-    console.log('conectei');
+
     const screen = document.getElementById('screen');
-    renderScreen(screen, game, requestAnimationFrame, playerId);
-    console.log('aqui');
+    const scoreTable = document.getElementById('score-table');
+
+    setupScreen(screen, game);
+    renderScreen(screen, scoreTable, game, requestAnimationFrame, playerId);
 })
 
 socket.on('disconnect', () => {

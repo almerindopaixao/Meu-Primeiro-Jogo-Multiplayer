@@ -36,7 +36,7 @@ class App {
             this.sockets.emit(command.type, command);
         })
 
-        // this.game.start()
+        //this.game.start()
 
         this.sockets.on('connection', socket => {
             const playerId = socket.id;
