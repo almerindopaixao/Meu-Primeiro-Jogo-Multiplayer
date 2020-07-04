@@ -1,4 +1,7 @@
 import express from 'express';
+import helmet from 'helmet';
+import csrf from 'csurf';
+import session from 'express-session';
 import { resolve } from 'path';
 import socketio from 'socket.io';
 import { createServer } from 'http';
@@ -6,6 +9,7 @@ import { createServer } from 'http';
 import homeRoutes from './src/routes/homeRoutes';
 import createGame from './frontend/modules/Game';
 import { player } from './src/controllers/homeController';
+import { checkCsrfError, csrfMiddleware } from './src/middlewares/middleware';
 
 class App {
     constructor() {
@@ -25,6 +29,20 @@ class App {
         this.app.use(express.static(resolve(__dirname, 'public')));
         this.app.set('views', resolve(__dirname, 'src', 'views'));
         this.app.set('view engine', 'ejs');
+        this.app.use(helmet());
+        this.sessionOptions = session({
+            secret: 'dsajfsajksajfkjaskfjsak',
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                maxAge: 1000 * 60 * 60 * 24 * 7,
+                httpOnly: true
+            }
+        })
+        this.app.use(this.sessionOptions);
+        this.app.use(csrf());
+        this.app.use(checkCsrfError, csrfMiddleware);
+
     }
 
     routes() {
@@ -43,8 +61,8 @@ class App {
             const playerId = socket.id;
             console.log(`> Player connected: ${playerId}`);
             
-            console.log(player)
-            this.game.addPlayer({ playerId: playerId, name: player });
+            const nome = player ? player : playerId;
+            this.game.addPlayer({ playerId: playerId, name: nome });
 
             socket.emit('setup', this.game.state);
 

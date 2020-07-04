@@ -2,12 +2,13 @@ let player;
 
 class HomeController {
     index(req, res) {
-        res.render('cadastro')
+        return res.render('cadastro')
     }
 
     store(req, res) {
-        res.render('cliente');
         player = req.body.player;
+        return res.render('cliente');
+        
     }
 }
 

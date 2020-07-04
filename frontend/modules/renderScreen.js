@@ -41,8 +41,8 @@ function updateScoreTable(scoreTable, game, currentPlayerId) {
 
     let scoreTableInnerHTML = `
         <tr class="header">
-            <td>Top 10 jogadores</td>
-            <td>Pontos</td>
+            <th>Top 10 jogadores</td>
+            <th>Pontos</td>
         <tr>
     `
 
@@ -87,8 +87,8 @@ function updateScoreTable(scoreTable, game, currentPlayerId) {
     if (currentPlayerFromTopScore) {
         scoreTableInnerHTML += `
             <tr class="current-player bottom">
-                <td class="socket-id">${currentPlayerFromTopScore.id} EU </td>
-                <td class="score-value">${currentPlayerFromTopScore.score}</td>
+                <td>${currentPlayerFromTopScore.playerId} EU </td>
+                <td>${currentPlayerFromTopScore.score}</td>
             </tr>
         `
     }

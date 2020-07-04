@@ -36,13 +36,13 @@ body {
     font-family: Arial, Helvetica, sans-serif
 }
 
-#score-table tr.header td {
-    border-bottom: 1px solid #CCC;
+#score-table tr.header th {
+    border-bottom: 2px solid #CCC;
     padding-bottom: 8px;
 }
 
 #score-table tr.footer td {
-    border-top: 1px solide #CCC;
+    border-top: 1px solid #CCC;
     font-size: 11px;
 }
 
