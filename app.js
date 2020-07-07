@@ -59,7 +59,7 @@ class App {
 
         this.sockets.on('connection', socket => {
             const playerId = socket.id;
-            console.log(`> Player connected: ${playerId}`);
+            // console.log(`> Player connected: ${playerId}`);
             
             const nome = player ? player : playerId;
             this.game.addPlayer({ playerId: playerId, name: nome });
@@ -68,7 +68,7 @@ class App {
 
             socket.on('disconnect', () => {
                 this.game.removePLayer({ playerId: playerId });
-                console.log(`> Player Disconnect: ${playerId}`);
+                // console.log(`> Player Disconnect: ${playerId}`);
             });
 
             socket.on('move-player', command => {
